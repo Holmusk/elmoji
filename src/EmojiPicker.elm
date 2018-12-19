@@ -3,8 +3,14 @@ module EmojiPicker exposing (Model, PickerConfig, Msg(..), view, update, init)
 {-| This module provides a general-purpose emoji picker, with emojis
 segregated by category.
 
+# Internals
+@docs Model, Msg
+
 # Config & Initialization
 @docs PickerConfig, init
+
+# Functions to use in integration
+@docs view, update
 -}
 
 import Dict exposing (Dict, get, empty, isEmpty, size)
@@ -37,6 +43,8 @@ type alias PickerConfig =
     , closeOnSelect : Bool
     }
 
+{-| The type that contains the internal state of the emoji picker
+-}
 type alias Model =
     { skinColor      : SkinColor  -- for future use (some emojis have variants)
     , activeCategory : Category   -- for displaying emojis
@@ -70,13 +78,24 @@ init config =
 
 ---- UPDATE ----
 
+{-| Most of the messages are handled internally, but there are a couple that will
+be of interest to the parent module:
+
+`Toggle`: Use this message to toggle the emoji picker on and off
+`Select`: Catch this message in the parent to retrieve the selected emoji
+-}
 type Msg
     = NoOp
     | Toggle
     | ChooseSkinColor SkinColor
     | SelectCategory Category
     | Select String
-      
+
+{-| You'll need to catch the `Select` message in your parent module to
+obtain the emoji from the picker. However, the picker's submodel should
+then be updated by this function (see `examples` folder for a sample
+implementation).
+-}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -201,7 +220,9 @@ displayCategoryIcon activeCat (cat, icon) =
     in
         span [ onClick (SelectCategory cat) ]
              [ updatedIcon ]
-                    
+
+{-| Use this function to instantiate the actual `Html msg` for the picker.
+-}
 view : Model -> Html.Html Msg
 view model =
     let
