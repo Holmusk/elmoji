@@ -1,7 +1,8 @@
 module EmojiPicker exposing (Model, PickerConfig, Msg(..), view, update, init)
 
 {-| This module provides a general-purpose emoji picker, with emojis
-segregated by category.
+segregated by category. See the `examples` folder in the souce repo for
+an example of how to use the picker in your application!
 
 # Internals
 @docs Model, Msg
@@ -33,9 +34,9 @@ type alias SkinColor = String
 {-| When initializing the emoji picker, you'll need to provide a few
 configuration parameters (see the `examples` directory for a sample implementation.
 
-`offsetX`: the horizontal offset from where the picker is declared
-`offsetY`: the vertical offset from where the picker is declared
-`closeOnSelect`: whether or not the close the picker after an emoji is selected
+`offsetX`: the horizontal offset from where the picker is declared  
+`offsetY`: the vertical offset from where the picker is declared  
+`closeOnSelect`: whether or not the close the picker after an emoji is selected  
 -}
 type alias PickerConfig =
     { offsetX       : Float
@@ -43,7 +44,7 @@ type alias PickerConfig =
     , closeOnSelect : Bool
     }
 
-{-| The type that contains the internal state of the emoji picker
+{-| The internal state of the emoji picker.
 -}
 type alias Model =
     { skinColor      : SkinColor  -- for future use (some emojis have variants)
@@ -81,8 +82,8 @@ init config =
 {-| Most of the messages are handled internally, but there are a couple that will
 be of interest to the parent module:
 
-`Toggle`: Use this message to toggle the emoji picker on and off
-`Select`: Catch this message in the parent to retrieve the selected emoji
+`Toggle`: Use this message in the parent to toggle the emoji picker on and off  
+`Select`: Catch this message in the parent to retrieve the selected emoji  
 -}
 type Msg
     = NoOp
@@ -92,9 +93,9 @@ type Msg
     | Select String
 
 {-| You'll need to catch the `Select` message in your parent module to
-obtain the emoji from the picker. However, the picker's submodel should
-then be updated by this function (see `examples` folder for a sample
-implementation).
+obtain the emoji from the picker. However, don't forget to propagate the
+messages down to this function, because some internal states will probably
+need to be updated.
 -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =

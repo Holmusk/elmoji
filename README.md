@@ -82,4 +82,4 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
            ...
    ```
 	
-And that's it! 
+And that's it! If you'd like to change any of the default styles in this module, you can clone the repo and edit the `Styles.elm` file.
