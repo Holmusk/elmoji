@@ -94,9 +94,9 @@ view : Model -> Html.Html Msg
 view model =
     let
         {- (6) include the picker in the view -}
-        picker = Html.map (EmojiMsg)
-                 <| fromUnstyled
-                 <| EmojiPicker.view model.emojiModel
+        picker = EmojiPicker.view model.emojiModel
+                 |> fromUnstyled
+                 |> Html.Styled.map (EmojiMsg)
         (_, emojiButton) = people
     in
         toUnstyled
