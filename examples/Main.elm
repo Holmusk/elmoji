@@ -64,9 +64,9 @@ update msg model =
         {- (3) Provide a way to toggle the emoji picker on and off  -}
         ToggleEmojiPicker ->
             let
-                ( subModel, _ ) = EmojiPicker.update EmojiPicker.Toggle model.emojiModel
+                (subModel, _) = EmojiPicker.update EmojiPicker.Toggle model.emojiModel
             in
-                ( { model | emojiModel = subModel }, Cmd.none )
+                ({ model | emojiModel = subModel }, Cmd.none)
 
         EmojiMsg subMsg ->
             case subMsg of
