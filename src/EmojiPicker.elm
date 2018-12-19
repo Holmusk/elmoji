@@ -1,8 +1,8 @@
 module EmojiPicker exposing (Model, PickerConfig, Msg(..), view, update, init)
 
 {-| This module provides a general-purpose emoji picker, with emojis
-segregated by category. See the `examples` folder in the souce repo for
-an example of how to use the picker in your application!
+segregated by category. See [this file](https://github.com/Holmusk/elmoji/blob/master/examples/Main.elm)
+for an example of how to use the picker in your application!
 
 # Internals
 @docs Model, Msg
@@ -32,7 +32,7 @@ import Tuple exposing (first)
 type alias SkinColor = String
 
 {-| When initializing the emoji picker, you'll need to provide a few
-configuration parameters (see the `examples` directory for a sample implementation.
+configuration parameters.
 
 `offsetX`: the horizontal offset from where the picker is declared  
 `offsetY`: the vertical offset from where the picker is declared  
@@ -44,7 +44,11 @@ type alias PickerConfig =
     , closeOnSelect : Bool
     }
 
-{-| The internal state of the emoji picker.
+{-| The internal state of the emoji picker.  
+
+Note: the `skinColor` field is not in use in the current version, 
+but a future release may include a skin tone selector to switch between
+emoji variants.
 -}
 type alias Model =
     { skinColor      : SkinColor  -- for future use (some emojis have variants)
