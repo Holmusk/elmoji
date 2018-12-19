@@ -13,18 +13,18 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
 	
 2. Initialize the picker's submodel with a `PickerConfig`:
     ```elm
-        pickerConfig : PickerConfig
-        pickerConfig =
-            { offsetX       = -271  -- horizontal offset
-            , offsetY       = -410  -- vertical offset
-            , closeOnSelect = True  -- close after clicking an emoji
-            }
+    pickerConfig : PickerConfig
+    pickerConfig =
+        { offsetX       = -271  -- horizontal offset
+        , offsetY       = -410  -- vertical offset
+        , closeOnSelect = True  -- close after clicking an emoji
+        }
          
-        initialModel : Model
-        initialModel = 
-            { text       = ""
-            , emojiModel = EmojiPicker.init pickerConfig
-            }
+    initialModel : Model
+    initialModel = 
+        { text       = ""
+        , emojiModel = EmojiPicker.init pickerConfig
+        }
     ```
 	
 3. Include a constructor in your `Msg` to toggle the picker's visibility by updating it with its internal `Toggle` message:
