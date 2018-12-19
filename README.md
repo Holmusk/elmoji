@@ -54,7 +54,7 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
         = NoOp
         ...
         | EmojiMsg EmojiPicker.Msg
-	...
+        ...
     ```
 	
 5. Catch the `Select` submessage in your `update` function (let the rest of the messages be handled by the internal update function):
@@ -80,7 +80,7 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
 	            <| fromUnstyled
                     <| EmojiPicker.view model.emojiModel
        in
-	   ...
+           ...
    ```
 	
 And that's it! 
