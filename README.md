@@ -83,3 +83,8 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
    ```
 	
 And that's it! If you'd like to change any of the default styles in this module, you can clone the repo and edit the `Styles.elm` file.
+
+## Acknowledgements
+
+The category icons were taken from the [emoji-mart repo](https://github.com/missive/emoji-mart/blob/master/src/svgs/index.js) by Missive, and rewritten in Elm.   
+The emojis themselves were obtained by parsing the `emoji.json` file on the [emoji-data repo](https://github.com/iamcal/emoji-data).
