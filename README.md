@@ -24,7 +24,7 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
 	initialModel = 
 	    { text       = ""
 	    , emojiModel = EmojiPicker.init pickerConfig
-            }
+	    }
     ```
 	
 3. Include a constructor in your `Msg` to toggle the picker's visibility by updating it with its internal `Toggle` message:
