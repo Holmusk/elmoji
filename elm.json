@@ -1,6 +1,6 @@
 {
     "type": "package",
-    "name": "daniellok/emoji-picker",
+    "name": "Holmusk/elmoji",
     "summary": "A tabbed general-purpose emoji picker",
     "license": "BSD-3-Clause",
     "version": "1.0.0",
