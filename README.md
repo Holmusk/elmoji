@@ -61,7 +61,7 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
     ```elm
     update : Msg -> Model -> (Model, Cmd Msg)
     update msg model =
- 	case msg of
+        case msg of
 	    ...
             EmojiMsg subMsg ->
                 case subMsg of
@@ -76,9 +76,9 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
    view : Model -> Html.Html Msg
    view model =
        let
-	   picker = Html.map (EmojiMsg)
+           picker = Html.map (EmojiMsg)
 	            <| fromUnstyled
-                    <| EmojiPicker.view model.emojiModel
+		    <| EmojiPicker.view model.emojiModel
        in
            ...
    ```
