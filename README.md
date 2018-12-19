@@ -76,10 +76,9 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
    view : Model -> Html.Html Msg
    view model =
        let
-           picker = Html.map (EmojiMsg)
-                    <| fromUnstyled
-                    <| EmojiPicker.view model.emojiModel
+           picker = Html.map (EmojiMsg) <| EmojiPicker.view model.emojiModel
        in
+           -- use `picker` somewhere
            ...
    ```
 	
