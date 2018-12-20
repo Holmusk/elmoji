@@ -1,6 +1,8 @@
 # Elmoji
 
-This module provides a general-purpose emoji picker written in Elm. In order to integrate this with your application, there are a few things that need to be implemented (run `elm reactor` and check the `examples` directory for a sample).
+Check out the [demo](https://holmusk.github.io/elmoji/)!
+
+This module provides a general-purpose emoji picker written in Elm. In order to integrate this with your application, there are a few things that need to be implemented (check the `examples` directory for a sample).
 
 1. Include a field in your `Model` to hold the picker's submodel:
     ```elm
