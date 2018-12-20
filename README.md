@@ -27,28 +27,7 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
         }
     ```
 	
-3. Include a constructor in your `Msg` to toggle the picker's visibility by updating it with its internal `Toggle` message:
-   ```elm
-   type Msg
-       = NoOp
-       ...
-       | ToggleEmojiPicker
-       ...
-	
-   update : Msg -> Model -> (Model, Cmd Msg)
-   update msg model =
-       case msg of
-           ...
-           ToggleEmojiPicker    ->
-               let
-                   (subModel, _) = EmojiPicker.update EmojiPicker.Toggle model.emojiModel
-               in
-                   ({ model | emojiModel = subModel }, Cmd.none)
-                   ...
-           ...
-   ```
-	
-4. Include a constructor in your `Msg` to catch the picker's submessages:
+3. Include a constructor in your `Msg` to catch the picker's submessages:
     ```elm
     type Msg
         = NoOp
@@ -56,8 +35,8 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
         | EmojiMsg EmojiPicker.Msg
         ...
     ```
-	
-5. Catch the `Select` submessage in your `update` function (let the rest of the messages be handled by the internal update function):
+
+4. Catch the `Select` submessage in your `update` function (let the rest of the messages be handled by the internal update function):
     ```elm
     update : Msg -> Model -> (Model, Cmd Msg)
     update msg model =
@@ -70,10 +49,18 @@ This module provides a general-purpose emoji picker written in Elm. In order to 
                         ...
             ...
 	```
-	
+5. Include a way to toggle the picker's visibility by sending its internal `Toggle` message:
+   ```elm
+   view : Model -> Html Msg
+   view model =
+   ...
+       button [ onClick <| EmojiMsg EmojiPicker.Toggle ] []
+   ...
+   ```
+   
 6. Include the picker in your `view` function (along with a button or something that sends the `ToggleEmojiPicker` message `onClick`). The picker is styled with the `elm-css` module, which uses an internal replacement for the standard `elm/html` module, so you'll need to `Html.map` it first:
    ```elm
-   view : Model -> Html.Html Msg
+   view : Model -> Html Msg
    view model =
        let
            picker = Html.map (EmojiMsg) <| EmojiPicker.view model.emojiModel

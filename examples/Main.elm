@@ -1,17 +1,13 @@
 module Main exposing (main)
 
-import Task
 import Browser
 import Html
-import Icons exposing (people)
-import Styles exposing (pathInactive, pathActive)
 import EmojiPicker exposing (Model, PickerConfig, Msg(..), view, update, init)
 import Css exposing (..)
 import Css.Global exposing (global, body, html, everything)
 import Html.Styled exposing (Html, Attribute, fromUnstyled, toUnstyled
                             , div, textarea, text, button, h1, p)
-import Html.Styled.Attributes exposing ( class, classList, src, placeholder
-                                       , value, id, hidden, tabindex, css, rows)
+import Html.Styled.Attributes exposing ( class,  placeholder, value, css, rows)
 import Html.Styled.Events exposing (onClick, onInput)
 
     
@@ -26,7 +22,7 @@ type alias Model =
 {- (2) initialize the picker with a PickerConfig -}
 pickerConfig : PickerConfig
 pickerConfig =
-    { offsetX       = -271  -- x position relative to button
+    { offsetX       = -281  -- x position relative to button
     , offsetY       = -410  -- y position relative to button
     , closeOnSelect = True  -- whether or not to close after an emoji is picked
     }
@@ -44,12 +40,11 @@ init =
     
 ---- UPDATE ----
 
-{- (3, 4) include a field to toggle the picker, 
+{- (3) include a field to toggle the picker, 
 and to catch the picker's submessages -}
 type Msg
     = NoOp
     | UpdateText String
-    | ToggleEmojiPicker
     | EmojiMsg EmojiPicker.Msg
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -60,17 +55,10 @@ update msg model =
 
         UpdateText s ->
             ({ model | text = s }, Cmd.none)
-            
-        {- (3) Provide a way to toggle the emoji picker on and off  -}
-        ToggleEmojiPicker ->
-            let
-                (subModel, _) = EmojiPicker.update EmojiPicker.Toggle model.emojiModel
-            in
-                ({ model | emojiModel = subModel }, Cmd.none)
 
         EmojiMsg subMsg ->
             case subMsg of
-                {- (5) Catch the `Select` submessage -}
+                {- (4) Catch the `Select` submessage -}
                 EmojiPicker.Select s ->
                     let
                         subModel = model.emojiModel
@@ -93,11 +81,10 @@ update msg model =
 view : Model -> Html.Html Msg
 view model =
     let
-        {- (6) include the picker in the view -}
+        -- (6) include the picker in the view
         picker = EmojiPicker.view model.emojiModel
                  |> fromUnstyled
                  |> Html.Styled.map (EmojiMsg)
-        (_, emojiButton) = people
     in
         toUnstyled
             (div []
@@ -120,12 +107,13 @@ view model =
                                               , demoInput
                                               ]
                                               []
-                                   {- I've chosen to put the picker with the button -} 
+                                   -- I've chosen to put the picker with the button
                                    , div [ buttonWrapper ]
                                          [ picker
-                                         , button [ onClick ToggleEmojiPicker
+                                         -- (5) Include a way to toggle the picker's visibility
+                                         , button [ onClick <| EmojiMsg EmojiPicker.Toggle
                                                   , buttonActual ]
-                                                  [ emojiButton pathInactive ]
+                                                  [ text "😀" ]
                                          ]
                                    ]
                              ]
@@ -207,11 +195,19 @@ demoInput =
     , resize none
     , float left
     , display inlineBlock
-    , width (px 250)
+    , width (px 260)
     , fontSize (px 18)
     , padding (px 10)
     , outline none
     , borderRadius (px 4)
+    , fontFamilies
+          [ "Source Sans Pro"
+          , "Trebuchet MS"
+          , "Lucida Grande"
+          , "Bitstream Vera Sans"
+          , "Helvetica Neue"
+          , "sans-serif"
+          ]
     ]
     
 bodyText : Attribute Msg
@@ -238,13 +234,13 @@ buttonActual =
     , backgroundColor (hex "#FFFFFF")
     , margin (px 2)
     , padding (px 0)
+    , fontSize (px 25)
     , hover
           [ cursor pointer
           , backgroundColor (rgba 0 0 0 0.05)
           ]
     ]
-        
-        
+    
 ---- PROGRAM ----
 
 
