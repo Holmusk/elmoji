@@ -3,8 +3,9 @@ module Styles exposing (..)
 import Html exposing (Attribute)
 import Html.Attributes exposing (style)
 import Svg
+import Svg.Attributes as SvgA
 
-emojiPicker : Float -> Float -> [[Attribute msg]]
+emojiPicker : Float -> Float -> List (Attribute msg)
 emojiPicker offsetX offsetY =
     [ style "padding" "0px"
     , style "backgroundColor" "rgb(255, 255, 255)"
@@ -23,7 +24,7 @@ emojiPicker offsetX offsetY =
     , style "text-align" "left"
     ]
     
-emojisMain : [Attribute msg]
+emojisMain : List (Attribute msg)
 emojisMain =
     [ style "width" "309px"
     , style "height" "350px"
@@ -32,12 +33,12 @@ emojisMain =
     , style "white-space" "normal"
     ]
 
-category : [Attribute msg]
+category : List (Attribute msg)
 category = [ style "width" "300px"]
 
-categoryTitle : [Attribute msg]
+categoryTitle : List (Attribute msg)
 categoryTitle =
-    [ style "fontSize" "18px"
+    [ style "font-size" "18px"
     , style "font-family" "sans-serif"
     , style "margin" "7px 0px 0px 0px"
     , style "padding" "2px 6px 3px 7px"
@@ -45,10 +46,10 @@ categoryTitle =
     , style "background-color" "rgb(255, 255, 255)"
     ]
         
-emoji : [Attribute msg]
+emoji : List (Attribute msg)
 emoji =
-    [ style "fontSize" "27px"
-    , style "fontFamilies" "apple color emoji"
+    [ style "font-size" "27px"
+    , style "font-family" "apple color emoji"
     , style "display" "inline-block"
     , style "padding" "6px 5px 3px 5px"
     , style "vertical-align" "middle"
@@ -57,7 +58,7 @@ emoji =
     , style "cursor" "pointer"
     ]
 
-iconPanel : [Attribute msg]
+iconPanel : List (Attribute msg)
 iconPanel =
     [ style "width" "315px"
     , style "height" "40px"
@@ -70,19 +71,19 @@ iconPanel =
     ]
 
 categoryIcon : Svg.Attribute msg
-categoryIcon = Svg.style "margin: 5px 7px 5px 6px"
+categoryIcon = SvgA.style "margin: 5px 7px 5px 6px; cursor: pointer;"
 
-pathActive : Svg.Attribute msg
-pathActive = Svg.style "fill: rgba(0, 75, 200, 0.8)"
+pathActive : Attribute msg
+pathActive = style "fill" "rgba(0, 75, 200, 0.8)"
 
-pathInactive : Svg.Attribute msg
-pathInactive = Svg.style "fill: rgba(0, 0, 0, 0.5)"
+pathInactive : Attribute msg
+pathInactive = style "fill" "rgba(0, 0, 0, 0.5)"
       
-emojiModalBackground : [Attribute msg]
+emojiModalBackground : List (Attribute msg)
 emojiModalBackground =
     [ style "z-index" "4"
     , style "position" "fixed"
-    , style "background-color" "white"
+    , style "background-color" "rgba(0, 0, 0, 0)"
     , style "width" "100%"
     , style "height" "100%"
     , style "top" "0px"
