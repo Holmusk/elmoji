@@ -15,12 +15,9 @@ for an example of how to use the picker in your application!
 -}
 
 import Dict exposing (Dict, get, empty, isEmpty, size)
-import String exposing (String, join, cons)
-import Html
-import Css exposing (Style)
-import Html.Styled exposing (Html, Attribute, text, div, h1, p, img, span, toUnstyled)
-import Html.Styled.Attributes exposing (class, hidden)
-import Html.Styled.Events exposing (onClick, on)
+import Html exposing (Html, Attribute, text, div, h1, p, img, span)
+import Html.Attributes exposing (class, hidden)
+import Html.Events exposing (onClick, on)
 import Styles exposing (..)
 import Icons exposing (..)
 import Emojis exposing (emojiDict)
@@ -104,20 +101,16 @@ need to be updated.
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        NoOp ->
-            ( model, Cmd.none )
+        NoOp ->  (model, Cmd.none)
 
-        Toggle ->
-            ( { model | hidden = not model.hidden }, Cmd.none )
+        Toggle -> ({ model | hidden = not model.hidden }, Cmd.none)
 
         -- currently this case is never called, but in the future we might
         -- add in a skin color selector for users to choose different emoji
         -- variants.
-        ChooseSkinColor s ->  
-            ( { model | skinColor = s }, Cmd.none )
+        ChooseSkinColor s -> ({ model | skinColor = s }, Cmd.none)
 
-        SelectCategory cat ->
-            ( { model | activeCategory = cat }, Cmd.none )
+        SelectCategory cat -> ({ model | activeCategory = cat }, Cmd.none)
 
         -- catch this in the parent. 's' is the emoji.
         Select s ->
@@ -125,8 +118,7 @@ update msg model =
                 newModel = if model.closeOnSelect
                            then { model | hidden = not model.hidden }
                            else model
-            in 
-                ( newModel, Cmd.none )
+            in  (newModel, Cmd.none)
                 
 ---- VIEW ----
 
@@ -138,19 +130,14 @@ update msg model =
 -}
 selectSkinVariation : SkinColor -> Emoji -> String
 selectSkinVariation color emoji =
-    let
-        isDictEmpty = isEmpty emoji.skinVariations
-    in
-        case (color, isDictEmpty) of
-            ("none", _) ->    -- if there is no specified skin tone,
-                emoji.native  -- return the yellow version of the emoji
-
-            (skin, False) ->  -- if there is a specified skin tone, try to get it
-                Maybe.withDefault emoji.native <| get skin emoji.skinVariations
-
-            _ ->
-                -- if the dict is empty, then no variations are available
-                emoji.native
+    let isDictEmpty = isEmpty emoji.skinVariations
+    in case (color, isDictEmpty) of
+        -- if there is no specified skin tone, return the yellow version of the emoji
+        ("none", _) -> emoji.native
+        -- if there is a specified skin tone, try to get it
+        (skin, False) -> Maybe.withDefault emoji.native <| get skin emoji.skinVariations
+        -- if the dict is empty, then no variations are available
+        _ -> emoji.native
 
 {- used to display a single emoji. it wraps the literal emoji string in a 
    <span class="emoji"> so it can be styled.
@@ -161,13 +148,10 @@ selectSkinVariation color emoji =
 -}
 displayEmoji : SkinColor -> Emoji -> Html Msg
 displayEmoji color emoji =
-    let
-        -- "native" is the literal emoji string
-        native = selectSkinVariation color emoji
-    in
-        span [ Styles.emoji
-             , onClick (Select native) ]
-             [ text native ]
+    let native = selectSkinVariation color emoji -- "native" is the literal emoji string
+    in span
+        ((onClick <| Select native)::Styles.emoji)
+        [ text native ]
 
 {- used to display emojis in a category. 
 
@@ -200,15 +184,12 @@ displayCategory : Int -> Dict String Emoji -> SkinColor -> Category -> Html Msg
 displayCategory version emojiDict color cat =
     let
         -- get the emojis from cat.emojis
-        catEmojis = getEmojisFromList version cat.emojis emojiDict
-                    
+        catEmojis = getEmojisFromList version cat.emojis emojiDict        
         -- render them all
         renderedEmojis = List.map (displayEmoji color) catEmojis
-    in
-    div [ Styles.category ]
-        ([ p [ Styles.categoryTitle ]
-             [ text cat.name ]
-        ] ++ renderedEmojis)
+    in div
+        Styles.category
+        <| ( p Styles.categoryTitle [text cat.name]) :: renderedEmojis
 
 {- used to display a category icon at the bottom of the emoji picker
 
@@ -216,15 +197,13 @@ displayCategory version emojiDict color cat =
        activeCat   : the active category (used to color the active icon blue)
        (cat, icon) : a tuple of (category, icon) from the Icons.elm file
 -}
-displayCategoryIcon : Category -> (Category, (Css.Style -> Html Msg)) -> Html Msg
+displayCategoryIcon : Category -> (Category, (Attribute Msg -> Html Msg)) -> Html Msg
 displayCategoryIcon activeCat (cat, icon) =
     let
         updatedIcon = if (==) activeCat.name cat.name
                       then icon Styles.pathActive    -- adds "active" class
                       else icon Styles.pathInactive  -- adds "inactive" class
-    in
-        span [ onClick (SelectCategory cat) ]
-             [ updatedIcon ]
+    in span [ onClick <| SelectCategory cat ] [ updatedIcon ]
 
 {-| Use this function to instantiate the actual `Html msg` for the picker.
 -}
@@ -235,19 +214,18 @@ view model =
         -- is most widely supported. however, in the ideal case, you'd set this
         -- dynamically based on what emoji version the user's browser supports.
         emojiVersion = 10
-        emojis = (displayCategory emojiVersion
-                      emojiDict model.skinColor model.activeCategory)
+        emojis = displayCategory emojiVersion emojiDict model.skinColor model.activeCategory
         icons  = List.map (displayCategoryIcon model.activeCategory) iconList
     in
-        toUnstyled (div [ hidden model.hidden ]
-                        [ div [ Styles.emojiPicker model.offsetX model.offsetY
-                              , hidden model.hidden ]
-                              [ div [ Styles.emojisMain ]
-                                    [ emojis ]
-                              , div [ Styles.iconPanel ] icons
-                              ]
-                        , div [ Styles.emojiModalBackground
-                              , onClick Toggle ]
-                              []
-                        ])
+        div 
+            [ hidden model.hidden ]
+            [ div
+                ((hidden model.hidden) :: (Styles.emojiPicker model.offsetX model.offsetY))
+                [ div Styles.emojisMain  [emojis]
+                , div Styles.iconPanel icons
+                ]
+            , div
+                ((onClick Toggle):: Styles.emojiModalBackground)
+                []
+            ]
 
