@@ -26,7 +26,7 @@ emojiPicker offsetX offsetY =
     
 emojisMain : List (Attribute msg)
 emojisMain =
-    [ style "width" "309px"
+    [ style "width" "320px"
     , style "height" "350px"
     , style "overflow-y" "auto"
     , style "padding" "0px 0px 0px 5px"
