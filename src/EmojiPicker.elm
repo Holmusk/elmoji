@@ -226,7 +226,7 @@ displayEmoji color emoji =
 getEmojisFromList : Int -> List String -> Dict String Emoji -> List Emoji
 getEmojisFromList version names emojiDict =
     List.filterMap (\name -> get name emojiDict) names
-        |> List.filter (\emoji -> emoji.version < version)
+        |> List.filter (\emoji -> emoji.version <= version)
 
 
 
@@ -291,11 +291,11 @@ displayCategoryIcon activeCat ( cat, icon ) =
 view : Model -> Html.Html Msg
 view model =
     let
-        -- i've set the version to 10 here, since that seems to be the version that
+        -- i've set the version to 15 here, since that seems to be the version that
         -- is most widely supported. however, in the ideal case, you'd set this
         -- dynamically based on what emoji version the user's browser supports.
         emojiVersion =
-            10
+            15
 
         emojis =
             displayCategory emojiVersion emojiDict model.skinColor model.activeCategory
