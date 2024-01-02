@@ -5,6 +5,7 @@ import Html.Attributes exposing (style)
 import Svg
 import Svg.Attributes as SvgA
 
+
 emojiPicker : Float -> Float -> List (Attribute msg)
 emojiPicker offsetX offsetY =
     [ style "padding" "0px"
@@ -23,7 +24,8 @@ emojiPicker offsetX offsetY =
     , style "left" <| String.fromFloat offsetX ++ "px"
     , style "text-align" "left"
     ]
-    
+
+
 emojisMain : List (Attribute msg)
 emojisMain =
     [ style "width" "320px"
@@ -33,8 +35,11 @@ emojisMain =
     , style "white-space" "normal"
     ]
 
+
 category : List (Attribute msg)
-category = [ style "width" "300px"]
+category =
+    [ style "width" "300px" ]
+
 
 categoryTitle : List (Attribute msg)
 categoryTitle =
@@ -45,7 +50,8 @@ categoryTitle =
     , style "color" "#555555"
     , style "background-color" "rgb(255, 255, 255)"
     ]
-        
+
+
 emoji : List (Attribute msg)
 emoji =
     [ style "font-size" "27px"
@@ -57,6 +63,7 @@ emoji =
     , style "border-radius" "5px"
     , style "cursor" "pointer"
     ]
+
 
 iconPanel : List (Attribute msg)
 iconPanel =
@@ -70,15 +77,22 @@ iconPanel =
     , style "border-top-style" "solid"
     ]
 
+
 categoryIcon : Svg.Attribute msg
-categoryIcon = SvgA.style "margin: 5px 7px 5px 6px; cursor: pointer;"
+categoryIcon =
+    SvgA.style "margin: 5px 7px 5px 6px; cursor: pointer;"
+
 
 pathActive : Attribute msg
-pathActive = style "fill" "rgba(0, 75, 200, 0.8)"
+pathActive =
+    style "fill" "rgba(0, 75, 200, 0.8)"
+
 
 pathInactive : Attribute msg
-pathInactive = style "fill" "rgba(0, 0, 0, 0.5)"
-      
+pathInactive =
+    style "fill" "rgba(0, 0, 0, 0.5)"
+
+
 emojiModalBackground : List (Attribute msg)
 emojiModalBackground =
     [ style "z-index" "4"
