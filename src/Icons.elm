@@ -18,14 +18,16 @@ import Types exposing (Category)
 
 
 
-{------------------------- ICONS -----------------------------
+{-
+   ------------------------- ICONS -----------------------------
 
-  Icons for use in the category selection bar. All icons were 
-  taken from:
+     Icons for use in the category selection bar. All icons were
+     taken from:
 
-  https://github.com/missive/emoji-mart/tree/master/src/svgs
+     https://github.com/missive/emoji-mart/tree/master/src/svgs
 
- -------------------------------------------------------------}
+    -------------------------------------------------------------
+-}
 
 
 iconList : List ( Category, Attribute msg -> Html msg )
