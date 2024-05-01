@@ -3,7 +3,7 @@
     "name": "Holmusk/elmoji",
     "summary": "A tabbed general-purpose emoji picker",
     "license": "BSD-3-Clause",
-    "version": "1.0.4",
+    "version": "1.0.2",
     "exposed-modules": [
         "EmojiPicker"
     ],
